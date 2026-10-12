@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "BTM Royalty Fix"
+description = "A responsive Beyond the Music demonstration dashboard showing how a proposed royalty pool could help independent artists with low-stream tracks understand illustrative distributions and simulate a USDC claim without any real funds or wallet connection."
+version = "1.0.0"
+id = "artifacts/btm-royalty-fix"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18912
+
+[services.development]
+run = "pnpm --filter @workspace/btm-royalty-fix run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/btm-royalty-fix", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/btm-royalty-fix/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18912"
+BASE_PATH = "/"
